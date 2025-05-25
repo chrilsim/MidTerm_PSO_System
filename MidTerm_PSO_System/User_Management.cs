@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KHDate;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -25,6 +26,7 @@ namespace MidTerm_PSO_System
         public int UpdateBy { get; set; } = ByAdmin.ById;
         public DateTime UpdateAt { get; set; }
         public bool anyUpdate = false;
+       
 
         public static List<User_Management> UserList = new List<User_Management>()
         {
@@ -62,6 +64,7 @@ namespace MidTerm_PSO_System
             this.UpdateBy = UpdateBy;
             this.UpdateAt = UpdateAt;
         }
+       
         string UserAndAdmin;
         public void Manu_UserManagement()
         {
@@ -183,7 +186,7 @@ namespace MidTerm_PSO_System
                     user.Status = Convert.ToBoolean(Console.ReadLine());
                     UserList.Add(user);
                     Console.WriteLine("\n✅ User added successfully!\n");
-
+                    user.CreateAt = DateTime.Now;
                     anyUpdate = false;
                 }
 
@@ -234,6 +237,7 @@ namespace MidTerm_PSO_System
 
                             Console.WriteLine("\nYou updated successfully!");
                             found = true;
+                           
                             anyUpdate = true;
                             break;
                         }
@@ -306,26 +310,20 @@ namespace MidTerm_PSO_System
             if (anyUpdate)
             {
                 Console.WriteLine("-------------------------------------------------------------UserManagement List------------------------------------------------------------");
-                string DataLine = string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-20}{5,-10}{6,-25}{7,-20}{8,-25}{9,-20}",
+                string DataLine = string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-20}{5,-10}{6,-25}{7,-15}{8,-25}{9,-20}",
                     "Id", "Name", "Gender", "Password", "Email", "Status", "CreateAt", "CreateBy", "UpdateAt", "UpdateBy","UpdateAt","UpdateBy");
                 Console.WriteLine(DataLine);
 
 
                 foreach (User_Management user in UserList)
                 {
-                    DateTime date = DateTime.Now;
-                    string[] khmerMonths = {
-                    "មករា", "កម្ភៈ", "មីនា", "មេសា", "ឧសភា", "មិថុនា",
-                    "កក្កដា", "សីហា", "កញ្ញា", "តុលា", "វិច្ឆិកា", "ធ្នូ"
-                };
-                    string khmerDate = $"{date.Day:00} {khmerMonths[date.Month - 1]} {date.Year}";
 
                     Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------");
                     for(int i = 0; i < UserList.Count; i++)
                     {
                         if (user.UserName == UserName && user.Password == Password && user.Email == Email )
                         {
-                            updateAtStr = khmerDate;
+                            updateAtStr = DateKH.UpdateGetKhmerDate(user.UpdateAt);
                             updateByStr = user.UpdateBy.ToString();
 
 
@@ -338,14 +336,15 @@ namespace MidTerm_PSO_System
                     }
                   
 
-                    string result = string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-20}{5,-10}{6,-25}{7,-20}{8,-25}{9,-20}",
-                    user.Id, user.UserName, user.Gender, user.Password, user.Email, user.Status, user.CreateAt, user.CreateBy, updateAtStr, updateByStr);
+                    string result = string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-20}{5,-10}{6,-25}{7,-15}{8,-27}{9,-20}",
+                    user.Id, user.UserName, user.Gender, user.Password, user.Email, user.Status,DateKH.GetKhmerDate(user.CreateAt), user.CreateBy, updateAtStr, updateByStr);
                     Console.WriteLine(result);
                 }
                 Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------");
             }
             else
             {
+                
                 Console.WriteLine("----------------------------------------------UserManagement List--------------------------------------------------");
                 string DataLine = string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-20}{5,-10}{6,-25}{7,-20}",
                     "Id", "Name", "Gender", "Password", "Email", "Status", "CreateAt", "CreateBy");
@@ -356,7 +355,7 @@ namespace MidTerm_PSO_System
                   
                     Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
                     string result = string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-20}{5,-10}{6,-25}{7,-20}",
-                    user.Id, user.UserName, user.Gender, user.Password, user.Email, user.Status, user.CreateAt, user.CreateBy);
+                    user.Id, user.UserName, user.Gender, user.Password, user.Email, user.Status, DateKH.GetKhmerDate(user.CreateAt), user.CreateBy);
                     Console.WriteLine(result);
                 }
                 Console.WriteLine("--------------------------------------------------------------------------------------------------------------");
@@ -534,7 +533,7 @@ namespace MidTerm_PSO_System
                             Console.WriteLine(DataLine);
                             Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
                             string result = string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-20}{5,-10}{6,-30}{7,-20}",
-                                user.Id, user.UserName, user.Gender, user.Password, user.Email, user.Status, user.CreateAt, user.CreateBy);
+                                user.Id, user.UserName, user.Gender, user.Password, user.Email, user.Status,KHDate.DateKH.GetKhmerDate(user.CreateAt), user.CreateBy);
                             Console.WriteLine(result);
                             Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
                             found = true;

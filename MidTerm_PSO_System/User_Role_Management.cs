@@ -25,7 +25,7 @@ namespace MidTerm_PSO_System
 
         public bool anyUpdate = false;
         public int OriginalUserId { get; set; }
-
+       
         public static List<User_Role_Management> UserRoleList = new List<User_Role_Management>()
         {
             new User_Role_Management(1,1,1, DateTime.Parse("2025-5-2"),1,DateTime.Now,1),
@@ -159,7 +159,7 @@ namespace MidTerm_PSO_System
 
                     UserRoleList.Add(UserRole);
                     Console.WriteLine("\n User Role added successfully!\n");
-                   
+                    UserRole.CreateAt = DateTime.Now;
                     anyUpdate = false;
                 }
 
@@ -201,10 +201,9 @@ namespace MidTerm_PSO_System
                             RoleId = Convert.ToInt32(Console.ReadLine());
                             
                             UserRole.RoleId = RoleId;
-
-                            UserRole.UpdateAt = DateTime.Now;
                             Console.WriteLine("\nYou updated successfully!");
                             found = true;
+                            
                             anyUpdate = true;
                             break;
                         }
@@ -275,12 +274,11 @@ namespace MidTerm_PSO_System
 
                 foreach (User_Role_Management UserRole in UserRoleList)
                 {
-
                     Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
 
                     if(UserRole.UserId == UserId && UserRole.RoleId == RoleId)
                     {
-                        updateAtStr = UserRole.UpdateAt.ToString("yyyy-MM-dd HH:mm");
+                        updateAtStr =KHDate.DateKH.UpdateGetKhmerDate(UserRole.UpdateAt);
                         updateByStr = UserRole.UpdateBy.ToString();
 
                     }
@@ -291,7 +289,7 @@ namespace MidTerm_PSO_System
                     }
 
                     string row = string.Format("{0,-10}{1,-10}{2,-10}{3,-30}{4,-20}{5,-25}{6,-15}",
-                        UserRole.Id, UserRole.UserId, UserRole.RoleId, UserRole.CreateAt, UserRole.CreateBy, updateAtStr, updateByStr);
+                        UserRole.Id, UserRole.UserId, UserRole.RoleId,KHDate.DateKH.GetKhmerDate(UserRole.CreateAt), UserRole.CreateBy, updateAtStr, updateByStr);
 
                     Console.WriteLine(row);
                 }
@@ -309,7 +307,7 @@ namespace MidTerm_PSO_System
                 {
                     Console.WriteLine("---------------------------------------------------------------------------------------------");
                     string row = string.Format("{0,-10}{1,-10}{2,-10}{3,-30}{4,-20}",
-                        UserRole.Id, UserRole.UserId, UserRole.RoleId, UserRole.CreateAt, UserRole.CreateBy);
+                        UserRole.Id, UserRole.UserId, UserRole.RoleId, KHDate.DateKH.GetKhmerDate(UserRole.CreateAt), UserRole.CreateBy);
 
                     Console.WriteLine(row);
                 }
@@ -488,7 +486,7 @@ namespace MidTerm_PSO_System
                             Console.WriteLine(header);
                             Console.WriteLine("---------------------------------------------------------------------------------------------");
                             string row = string.Format("{0,-10}{1,-10}{2,-10}{3,-30}{4,-20}",
-                                UserRole.Id, UserRole.UserId, UserRole.RoleId, UserRole.CreateAt, UserRole.CreateBy);
+                                UserRole.Id, UserRole.UserId, UserRole.RoleId, KHDate.DateKH.GetKhmerDate(UserRole.CreateAt), UserRole.CreateBy);
 
                             Console.WriteLine(row);
 

@@ -11,14 +11,14 @@ namespace MidTerm_PSO_System
         public bool Status { get; set; } 
         public string Gender { get; set; }
         public string Email { get; set; }
-        public DateTime CreateAt { get; set; }= DateTime.Now;
-        public int CreateBy { get; set; } = 1;
+        public DateTime CreateAt { get; set; }
+        public int CreateBy { get; set; } 
         public int UpdateBy { get; set; }
         public int UserId { get; set; }
         public string Role { get; set; } 
         public string Name { get; set; }
         public int RoleId { get; set; }
-        public object UpdateAt { get; internal set; }=DateTime.Now;
+        public object UpdateAt { get; internal set; }
 
         public static List<Login> loginList = new List<Login>()
         {
@@ -112,8 +112,6 @@ namespace MidTerm_PSO_System
             {
                 Console.WriteLine(ex.Message);
             }
-
-           
         }
 
         public void AdminOrUser()
@@ -149,9 +147,6 @@ namespace MidTerm_PSO_System
             catch (Exception ex) { Console.WriteLine(ex.Message); }
             AdminOrUser();
             return;
-            
-            
-            
         }
     }
 }

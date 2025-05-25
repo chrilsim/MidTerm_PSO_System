@@ -215,7 +215,7 @@ namespace MidTerm_PSO_System
                             Console.Write("input price:");
                             this.Price = Convert.ToDouble(Console.ReadLine());
                             saledetil.Price = this.Price;
-
+                            saledetil.Total = saledetil.Price * saledetil.Qty;
                             Console.WriteLine("\nYou Update Sale Detail successfully!");
                             found = true;
                             break;

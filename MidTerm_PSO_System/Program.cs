@@ -10,6 +10,8 @@ namespace MidTerm_PSO_System
     {
         static void Main(string[] args)
         {
+           
+            //Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.OutputEncoding = Encoding.UTF8;
             Login login = new Login();
             login.AdminOrUser();

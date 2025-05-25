@@ -24,7 +24,7 @@ namespace MidTerm_PSO_System
         public string Tel { get; set; }
         public string  Address { get; set; }
         public DateTime CreateAt { get; set; }
-        public DateTime UpdateAt { get; set; } = DateTime.Now;
+        public DateTime UpdateAt { get; set; }
         public int CreateBy { get; set; } = ByAdmin.ById;
         public int UpdateBy { get; set; } = ByAdmin.ById;
         public bool anyUpdate = false;
@@ -161,7 +161,7 @@ namespace MidTerm_PSO_System
                    
                     SupplierList.Add(supplier);
                     Console.WriteLine("\n Add Stock successfully!\n");
-
+                    supplier.CreateAt = DateTime.Now;
                     anyUpdate = false;
                 }
             }
@@ -201,7 +201,6 @@ namespace MidTerm_PSO_System
                             Address = Console.ReadLine();
                             supplier.Address = Address;
 
-                            supplier.UpdateAt = DateTime.Now;
                             Console.WriteLine("\nYou Update Supplier successfully!");
                             found = true;
                             anyUpdate = true;
@@ -282,7 +281,7 @@ namespace MidTerm_PSO_System
 
                         if (supplier.Name == Name && supplier.Tel == Tel && supplier.Address == Address )
                         {
-                            updateAtStr = supplier.UpdateAt.ToString("yyyy-MM-dd HH:mm");
+                            updateAtStr = KHDate.DateKH.UpdateGetKhmerDate(supplier.UpdateAt);
                             updateByStr = supplier.UpdateBy.ToString();
 
                         }
@@ -295,7 +294,7 @@ namespace MidTerm_PSO_System
                     }
 
                     string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-25}{5,-15}{6,-25}{7,-15}",
-                    supplier.Id, supplier.Name, supplier.Tel, supplier.Address, supplier.CreateAt, supplier.CreateBy, updateAtStr, updateByStr);
+                    supplier.Id, supplier.Name, supplier.Tel, supplier.Address, KHDate.DateKH.GetKhmerDate(supplier.CreateAt), supplier.CreateBy, updateAtStr, updateByStr);
 
 
                     Console.WriteLine(row);
@@ -314,7 +313,7 @@ namespace MidTerm_PSO_System
                 {
                     Console.WriteLine("---------------------------------------------------------------------------------------------");
                     string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-25}{5,-25}",
-                        supplier.Id, supplier.Name, supplier.Tel, supplier.Address, supplier.CreateAt, supplier.CreateBy);
+                        supplier.Id, supplier.Name, supplier.Tel, supplier.Address, KHDate.DateKH.GetKhmerDate(supplier.CreateAt), supplier.CreateBy);
 
                     Console.WriteLine(row);
                 }
@@ -491,7 +490,7 @@ namespace MidTerm_PSO_System
 
                             Console.WriteLine("---------------------------------------------------------------------------------------------");
                             string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-25}{5,-25}",
-                                supplier.Id, supplier.Name, supplier.Tel, supplier.Address, supplier.CreateAt, supplier.CreateBy);
+                                supplier.Id, supplier.Name, supplier.Tel, supplier.Address, KHDate.DateKH.GetKhmerDate(supplier.CreateAt), supplier.CreateBy);
 
                             Console.WriteLine(row);
                             Console.WriteLine("---------------------------------------------------------------------------------------------");

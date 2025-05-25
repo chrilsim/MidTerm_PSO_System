@@ -176,45 +176,23 @@ namespace MidTerm_PSO_System
         }
         public void ShowProductManagerment()
         {
-            if (anyUpdate)
+
+
+            Console.WriteLine("------------------------------------------ User Role Management List ------------------------------------------");
+            string header = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-10}{6,-15}", "Id", "ProductName", "Barcode", "SellPrice", "QtyInstock", "Image", "CateogoryId");
+            Console.WriteLine(header);
+
+            foreach (ProductManagerment product in ProductList)
             {
-                Console.WriteLine("------------------------------------------ User Role Management List (Update) ------------------------------------------");
-                string header = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-10}{6,-15}", "Id", "ProductName", "Barcode", "SellPrice", "QtyInstock", "Image", "CateogoryId");
-                Console.WriteLine(header);
-
-                foreach (ProductManagerment product in ProductList)
-                {
-
-                    Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
-
-                    string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-10}{6,-15}",
-                        product.Id, product.ProductName, product.Barcode, product.SellPrice, product.QtyInstock, product.Image, product.CateogoryId);
-
-                    Console.WriteLine(row);
-                }
-
-                Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
-
-            }
-            else
-            {
-                Console.WriteLine("------------------------------------------ User Role Management List ------------------------------------------");
-                string header = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-10}{6,-15}", "Id", "ProductName", "Barcode", "SellPrice", "QtyInstock", "Image", "CateogoryId");
-                Console.WriteLine(header);
-
-                foreach (ProductManagerment product in ProductList)
-                {
-                    Console.WriteLine("---------------------------------------------------------------------------------------------");
-                    string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-10}{6,-15}",
-                      product.Id, product.ProductName, product.Barcode, product.SellPrice, product.QtyInstock, product.Image, product.CateogoryId);
-
-
-                    Console.WriteLine(row);
-                }
-
                 Console.WriteLine("---------------------------------------------------------------------------------------------");
+                string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-10}{6,-15}",
+                  product.Id, product.ProductName, product.Barcode, product.SellPrice, product.QtyInstock, product.Image, product.CateogoryId);
 
+
+                Console.WriteLine(row);
             }
+
+            Console.WriteLine("---------------------------------------------------------------------------------------------");
         }
         public void UpdateProductManagerment()
         {
@@ -266,7 +244,6 @@ namespace MidTerm_PSO_System
 
                             Console.WriteLine("\nYou updated successfully!");
                             found = true;
-                            anyUpdate = true;
                             break;
                         }
                     }

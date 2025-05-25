@@ -30,11 +30,7 @@ namespace MidTerm_PSO_System
 		public int UpdateBy { get; set; } = ByAdmin.ById;
         public bool anyUpdate=false;
 
-        public static List<AddStockManagerment> AddStockList = new List<AddStockManagerment>()
-		{
-			new AddStockManagerment(1,11,24,0.5,1,DateTime.Parse("2025-5-2"),1,DateTime.Parse("2025-5-2"),1),
-            new AddStockManagerment(2,22,24,0.5,1,DateTime.Parse("2025-5-2"),1,DateTime.Parse("2025-5-2"),1)
-        };
+        public static List<AddStockManagerment> AddStockList = new List<AddStockManagerment>();
 		public AddStockManagerment() { }
 
         public AddStockManagerment(int id, int supplierId, int qty, double price, double amount, DateTime createAt, int createBy, DateTime updateAt, int updateBy)
@@ -162,12 +158,11 @@ namespace MidTerm_PSO_System
                     Console.Write("input Price:");
                     AddStock.Price =Convert.ToDouble(Console.ReadLine());
 
-                    Console.Write("input Amount:");
-                    AddStock.Amount = Convert.ToDouble(Console.ReadLine());
+                    AddStock.Amount = AddStock.Price * AddStock.Qty; 
 
                     AddStockList.Add(AddStock);
                     Console.WriteLine("\n Add Stock successfully!\n");
-
+                    AddStock.CreateAt = DateTime.Now;
                     anyUpdate = false;
                 }
             }
@@ -207,11 +202,7 @@ namespace MidTerm_PSO_System
                             Price = Convert.ToDouble(Console.ReadLine());
                             AddStock.Price = Price;
 
-                            Console.Write("input Amount:");
-                            Amount = Convert.ToDouble(Console.ReadLine());
-                            AddStock.Amount = Amount;
-
-                            AddStock.UpdateAt = DateTime.Now;
+                            AddStock.Amount = AddStock.Price * AddStock.Qty;
                             Console.WriteLine("\nYou Add Stock successfully!");
                             found = true;
                             anyUpdate = true;
@@ -289,9 +280,9 @@ namespace MidTerm_PSO_System
                     for (int i = 0; i < AddStockList.Count; i++)
                     {
                         
-                        if (AddStock.SupplierId == SupplierId && AddStock.Qty == Qty && AddStock.Price == Price && AddStock.Amount == Amount)
+                        if (AddStock.SupplierId == SupplierId && AddStock.Qty == Qty && AddStock.Price == Price)
                         {
-                            updateAtStr= AddStock.UpdateAt.ToString("yyyy-MM-dd HH:mm");
+                            updateAtStr= KHDate.DateKH.UpdateGetKhmerDate(AddStock.UpdateAt);
                             updateByStr= AddStock.UpdateBy.ToString();
 
                         }
@@ -304,7 +295,7 @@ namespace MidTerm_PSO_System
                     }
 
                     string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-10}{5,-25}{6,-10}{7,-25}{8,-15}",
-                        AddStock.Id, AddStock.SupplierId, AddStock.Qty, AddStock.Price, AddStock.Amount, AddStock.CreateAt, AddStock.CreateBy, updateAtStr, updateByStr);
+                        AddStock.Id, AddStock.SupplierId, AddStock.Qty, AddStock.Price, AddStock.Amount, KHDate.DateKH.GetKhmerDate(AddStock.CreateAt), AddStock.CreateBy, updateAtStr, updateByStr);
 
                     Console.WriteLine(row);
                 }
@@ -322,7 +313,7 @@ namespace MidTerm_PSO_System
                 {
                     Console.WriteLine("---------------------------------------------------------------------------------------------");
                     string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-25}{6,-10}",
-                         AddStock.Id, AddStock.SupplierId, AddStock.Qty, AddStock.Price, AddStock.Amount, AddStock.CreateAt, AddStock.CreateBy);
+                         AddStock.Id, AddStock.SupplierId, AddStock.Qty, AddStock.Price, AddStock.Amount, KHDate.DateKH.GetKhmerDate(AddStock.CreateAt), AddStock.CreateBy);
 
                     Console.WriteLine(row);
                 }
@@ -499,7 +490,7 @@ namespace MidTerm_PSO_System
 
                             Console.WriteLine("---------------------------------------------------------------------------------------------");
                             string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}{5,-25}{6,-10}",
-                                 AddStock.Id, AddStock.SupplierId, AddStock.Qty, AddStock.Price, AddStock.Amount, AddStock.CreateAt, AddStock.CreateBy);
+                                 AddStock.Id, AddStock.SupplierId, AddStock.Qty, AddStock.Price, AddStock.Amount,KHDate.DateKH.GetKhmerDate(AddStock.CreateAt), AddStock.CreateBy);
 
                             Console.WriteLine(row);
                             Console.WriteLine("---------------------------------------------------------------------------------------------");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KHDate;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -28,13 +29,7 @@ namespace MidTerm_PSO_System
 		public int CreateBy { get; set; } = ByAdmin.ById;
 
         public bool anyUpdate=false;
-		public static List<CategorManagerment> CategoryList = new List<CategorManagerment>()
-		{
-			new CategorManagerment(1,"Computer",true,DateTime.Parse("2025-5-2"),1,DateTime.Parse("2025-5-2"),1),
-            new CategorManagerment(2,"Phone",true,DateTime.Parse("2025-5-2"),1,DateTime.Parse("2025-5-2"),1)
-
-
-        };
+		public static List<CategorManagerment> CategoryList = new List<CategorManagerment>();
 		public CategorManagerment() { }
 
         public CategorManagerment(int id, string categoryName, bool status, DateTime createAt, int createBy, DateTime updateAt, int updateBy)
@@ -160,7 +155,7 @@ namespace MidTerm_PSO_System
                     
                     CategoryList.Add(category);
                     Console.WriteLine("\n Category added successfully!\n");
-
+                    category.CreateAt = DateTime.Now;
                     anyUpdate = false;
                 }
             }
@@ -172,26 +167,29 @@ namespace MidTerm_PSO_System
             if (anyUpdate)
             {
                 Console.WriteLine("------------------------------------------Categoty Management List (Update) ------------------------------------------");
-                string header = string.Format("{0,-10}{1,-15}{2,-10}{3,-25}{4,-15}{5,-20}{6,-15}", "Id", "CategoryName", "Status", "CreateAt", "CreateBy", "UpdateAt", "UpdateBy");
+                string header = string.Format("{0,-10}{1,-15}{2,-10}{3,-25}{4,-15}{5,-25}{6,-15}", "Id", "CategoryName", "Status", "CreateAt", "CreateBy", "UpdateAt", "UpdateBy");
                 Console.WriteLine(header);
 
                 foreach (CategorManagerment category in CategoryList)
                 {
 
                     Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
-                    if(category.CategoryName == CategoryName && category.Status == Status)
-                    {
-                        updateAtStr = category.UpdateAt.ToString("yyyy-MM-dd HH:mm");
-                        updateByStr = category.UpdateBy.ToString();
-                    }
-                    else
-                    {
-                        updateAtStr = category.UpdateAt.ToString("-");
-                        updateByStr = category.UpdateBy.ToString("N/A");
-                    }
 
-                    string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-25}{4,-15}{5,-20}{6,-15}",
-                        category.Id, category.CategoryName, category.Status, category.CreateAt, category.CreateBy, updateAtStr, updateByStr);
+                    updateAtStr = (category.CategoryName == CategoryName) ? DateKH.UpdateGetKhmerDate(category.UpdateAt) : "-";
+                    updateByStr = (category.CategoryName == CategoryName) ? category.UpdateBy.ToString() : "N/A";
+                    //if(category.CategoryName == CategoryName)
+                    //{
+                    //    updateAtStr = KHDate.DateKH.UpdateGetKhmerDate(category.UpdateAt);
+                    //    updateByStr = category.UpdateBy.ToString();
+                    //}
+                    //else
+                    //{
+                    //    updateAtStr = category.UpdateAt.ToString("-");
+                    //    updateByStr = category.UpdateBy.ToString("N/A");
+                    //}
+
+                    string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-25}{4,-15}{5,-25}{6,-15}",
+                        category.Id, category.CategoryName, category.Status, KHDate.DateKH.GetKhmerDate(category.CreateAt), category.CreateBy, updateAtStr, updateByStr);
 
                     Console.WriteLine(row);
                 }
@@ -209,7 +207,7 @@ namespace MidTerm_PSO_System
                 {
                     Console.WriteLine("---------------------------------------------------------------------------------------------");
                     string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}",
-                        category.Id, category.CategoryName, category.Status, category.CreateAt, category.CreateBy);
+                        category.Id, category.CategoryName, category.Status,KHDate.DateKH.GetKhmerDate(category.CreateAt), category.CreateBy);
 
                     Console.WriteLine(row);
                 }
@@ -248,8 +246,6 @@ namespace MidTerm_PSO_System
                             Console.Write("input Status:");
                             Status = Boolean.Parse(Console.ReadLine());
                             category.Status = Status;
-
-                            category.UpdateAt = DateTime.Now;
                             Console.WriteLine("\nYou updated successfully!");
                             found = true;
                             anyUpdate = true;
@@ -480,7 +476,7 @@ namespace MidTerm_PSO_System
 
                             Console.WriteLine("---------------------------------------------------------------------------------------------");
                             string row = string.Format("{0,-10}{1,-15}{2,-10}{3,-15}{4,-15}",category.Id, category.CategoryName, category.Status,
-                            category.CreateAt, category.CreateBy);
+                            KHDate.DateKH.GetKhmerDate(category.CreateAt), category.CreateBy);
                             Console.WriteLine(row);
                             Console.WriteLine("---------------------------------------------------------------------------------------------");
                             found = true;

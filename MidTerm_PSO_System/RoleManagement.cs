@@ -1,5 +1,7 @@
-﻿using System;
+﻿using KHDate;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +24,10 @@ namespace MidTerm_PSO_System
 		public bool Status { get; set; }
 		public DateTime CreateAt { get; set; }
         public int CreateBy { get; set; } = ByAdmin.ById;
-		public DateTime UpdateAt { get; set; }= DateTime.Now;
+		public DateTime UpdateAt { get; set; }
 		public int UpdateBy { get; set; } = ByAdmin.ById;
         public bool anyUpdate = false;
-
+        
         public static List<RoleManagement> RoleList = new List<RoleManagement>()
         {
         new RoleManagement(1, "Admin", true, DateTime.Parse("2025-5-2"), 1, DateTime.Parse("2025-5-2"), 1),
@@ -39,6 +41,7 @@ namespace MidTerm_PSO_System
            this.Name = Name;
             this.Status = Status;
             this.CreateBy = CreateBy;
+            this.CreateAt = CreateAt;
             this.UpdateAt = UpdateAt;
             this.UpdateBy = UpdateBy;
             this.UpdateAt = UpdateAt;
@@ -157,7 +160,7 @@ namespace MidTerm_PSO_System
 
                     RoleList.Add(Role);
                     Console.WriteLine("\n Role added successfully!\n");
-
+                    Role.CreateAt = DateTime.Now;
                     anyUpdate = false;
                 }
             }
@@ -193,7 +196,7 @@ namespace MidTerm_PSO_System
                             Status = bool.Parse(Console.ReadLine());
                             Role.Status = Status;
 
-                            Role.UpdateAt = DateTime.Now;
+
                             anyUpdate = true;
                             Console.WriteLine("\nYou updated successfully!");
                             found = true;
@@ -260,6 +263,7 @@ namespace MidTerm_PSO_System
             }
         }
         string updateAtStr, updateByStr;
+        
         public void ShowRoleManagerment()
         {
             if (anyUpdate)
@@ -271,24 +275,15 @@ namespace MidTerm_PSO_System
                 foreach (RoleManagement Role in RoleList)
                 {
 
+                   
+
                     Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
 
-                    updateAtStr = (Role.Name == Name) ? Role.UpdateAt.ToString("yyyy-MM-dd HH:mm") : "-";
+                    updateAtStr = (Role.Name == Name) ? DateKH.UpdateGetKhmerDate(Role.UpdateAt) : "-";
                     updateByStr = (Role.Name == Name) ? Role.UpdateBy.ToString(): "N/A";
-
-                    //if (Role.Name == Name && Role.Status == Status)
-                    //{
-                    //    updateAtStr = Role.UpdateAt.ToString("yyyy-MM-dd HH:mm");
-                    //    updateByStr = Role.UpdateBy.ToString();
-                    //}
-                    //else
-                    //{
-                    //    updateAtStr = Role.UpdateAt.ToString("-");
-                    //    updateByStr = Role.UpdateBy.ToString("N/A");
-                    //}
-
-                    string row = string.Format("{0,-10}{1,-10}{2,-10}{3,-30}{4,-20}{5,-25}{6,-15}",
-                        Role.Id, Role.Name, Role.Status, Role.CreateAt, Role.CreateBy, updateAtStr, updateByStr);
+     
+                    string row = string.Format("{0,-10}{1,-10}{2,-10}{3,-30}{4,-20}{5,-27}{6,-15}",
+                        Role.Id, Role.Name, Role.Status, DateKH.GetKhmerDate(Role.CreateAt), Role.CreateBy, updateAtStr, updateByStr);
 
                     Console.WriteLine(row);
                 }
@@ -304,9 +299,10 @@ namespace MidTerm_PSO_System
 
                 foreach (RoleManagement Role in RoleList)
                 {
+                    
                     Console.WriteLine("---------------------------------------------------------------------------------------------");
                     string row = string.Format("{0,-10}{1,-10}{2,-10}{3,-30}{4,-20}",
-                        Role.Id, Role.Name, Role.Status, Role.CreateAt, Role.CreateBy);
+                        Role.Id, Role.Name, Role.Status, DateKH.GetKhmerDate(Role.CreateAt), Role.CreateBy);
 
                     Console.WriteLine(row);
                 }
@@ -482,7 +478,7 @@ namespace MidTerm_PSO_System
                             Console.WriteLine(header);
                             Console.WriteLine("---------------------------------------------------------------------------------------------");
                             string row = string.Format("{0,-10}{1,-10}{2,-10}{3,-30}{4,-20}",
-                                Role.Id, Role.Name, Role.Status, Role.CreateAt, Role.CreateBy);
+                                Role.Id, Role.Name, Role.Status,KHDate.DateKH.GetKhmerDate(Role.CreateAt), Role.CreateBy);
 
                             Console.WriteLine(row);
 

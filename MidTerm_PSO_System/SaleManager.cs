@@ -170,7 +170,7 @@ namespace MidTerm_PSO_System
 
 
             Console.WriteLine("------------------------------------------ Sale Management List ------------------------------------------");
-            string header = string.Format("{0,-10}{1,-25}{2,-20}{3,-15}{4,-15}", "Id", "CustomerId", "SaleDate", "UserId", "TotalAmount");
+            string header = string.Format("{0,-10}{1,-25}{2,-25}{3,-15}{4,-15}", "Id", "CustomerId", "SaleDate", "UserId", "TotalAmount");
             Console.WriteLine(header);
 
             foreach (SaleManagerment sale in SaleList)
@@ -179,7 +179,7 @@ namespace MidTerm_PSO_System
                 sale.SaleDate = DateTime.Now;
 
                 Console.WriteLine("---------------------------------------------------------------------------------------------");
-                string row = string.Format("{0,-10}{1,-25}{2,-20}{3,-15}{4,-15}",
+                string row = string.Format("{0,-10}{1,-25}{2,-25}{3,-15}{4,-15}",
                     sale.Id, sale.CustomerId,sale.SaleDate,sale.UserId, sale.TotalAmount);
 
                 Console.WriteLine(row);
